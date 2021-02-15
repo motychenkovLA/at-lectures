@@ -30,7 +30,7 @@ public class Main {
 
         do {
 
-            System.out.println("Выберите действие: \n 1. Добавить новый дефект \n 2. Вывести список дефектов \n 3. Выйти из программы");
+            System.out.println("Выберите действие: \n1. Добавить новый дефект \n2. Вывести список дефектов \n3. Выйти из программы");
 
             //как добавить игнорирование эксепшена при вводе в консоли строки??
 
@@ -40,7 +40,10 @@ public class Main {
             if (action == 1 && bug < MAX_AMOUNT_BUGS){
                 System.out.println("Введите резюме дефекта:");
                 resumeArrayInfo[bug] = in.nextLine();
-                System.out.println("Выберите критичность дефекта: \n 1. Блокирующий \n 2. Высокий \n 3. Средний \n 4. Низкий");
+                System.out.println("Выберите критичность дефекта:");
+                for (int i = 0; i < CRITICALITY_ARRAY.length; i++) {
+                    System.out.println((i+1) + ". " + CRITICALITY_ARRAY[i]);
+                }
                 //ввод критичности из консоли
                 int choice = in.nextInt();
                 //переменная для критичности
