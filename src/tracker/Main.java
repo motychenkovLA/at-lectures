@@ -4,7 +4,17 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
+        // переменные
+        int act; //действия пользователя
+        int CONST = 5; //рабочая неделя
+        int totalBugs = 0; //количество дефектов
+        int MAX_COUNT_BUGS = 10; // максимальное количество дефектов в багтрекере
+
+        //массивы
+        String arraysummary [] = new String[MAX_COUNT_BUGS];
+        String arraypriority [] = new String[MAX_COUNT_BUGS];
+        int arraydays[] = new int[MAX_COUNT_BUGS];
 
         //запуск программы
         do {
