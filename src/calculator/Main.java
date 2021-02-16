@@ -15,14 +15,14 @@ public class Main {
         int index = 0;
 
         while (true) {
-            System.out.println("Введите число: ");
+            System.out.println("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
             leftOperands[index] = scanner.nextInt();
             scanner.nextLine();
 
-            System.out.println("Введите операцию: ");
+            System.out.println("Р’РІРµРґРёС‚Рµ РѕРїРµСЂР°С†РёСЋ: ");
             operators[index] = scanner.nextLine();
 
-            System.out.println("Введите число: ");
+            System.out.println("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
             rightOperands[index] = scanner.nextInt();
             scanner.nextLine();
 
@@ -34,14 +34,14 @@ public class Main {
                 case "*": results[index] = leftOperands[index] * rightOperands[index]; break;
                 case "%": results[index] = leftOperands[index] % rightOperands[index]; break;
                 default:
-                    System.out.println("Неверная операция");
+                    System.out.println("РќРµРІРµСЂРЅР°СЏ РѕРїРµСЂР°С†РёСЏ");
             }
 
             System.out.println(leftOperands[index] + " " + operators[index] + " " + rightOperands[index] + " = " + results[index]);
 
             index++;
 
-            System.out.println("quit - выйти, any key - продолжить");
+            System.out.println("quit - РІС‹Р№С‚Рё, any key - РїСЂРѕРґРѕР»Р¶РёС‚СЊ");
             String stop = scanner.nextLine();
             if (stop.equals("quit") || index == SIZE) break;
         }
