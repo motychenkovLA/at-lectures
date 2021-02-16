@@ -44,7 +44,7 @@ public class Main {
                 } else System.out.println("----------\nНевозможно создать более 10 дефектов\n----------");
             } else if (userChoice == 2) {
                 if (countBugs > 0) {
-                    System.out.println(countBugs);
+                    //System.out.println(countBugs);
                     for (int i = 0; i < countBugs; i++)
                     System.out.println("Дефект № " + (i+1) + " | Резюме: " + arrayOfResume[i] + " | Критичность дефекта: " +
                             arrayOfCriticality[i] + " | Количество дней на исправление: " + arrayOfCorrectionDate[i] +
