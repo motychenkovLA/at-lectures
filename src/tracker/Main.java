@@ -5,31 +5,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        // Константы
-        // рабочая неделя
         final int WORK_WEEK = 5;
-        //максимальное количество дефектов
         final int MAX_AMOUNT_BUGS = 10;
-        // массив возможных критичностей дефекта
-        final String[]  CRITICALITY_ARRAY= {"Блокирующий", "Высокий", "Средний", "Низкий"};
+        final String[] SEVERITY_ARRAY = {"Блокирующий", "Высокий", "Средний", "Низкий"};
 
-        //переменная выбора действия
         int action;
-        // массив дефектов
-        String[] arrayOfBugs = new String[MAX_AMOUNT_BUGS];
-        //переменная текущего дефекта
-        int bug = 0;
-        // массив инфо по резюме
+        int bugIndex = 0;
         String[] resumeArrayInfo = new String[MAX_AMOUNT_BUGS];
-        // массив инфо по критичностям дефектов
-        String[] criticalityArrayInfo = new String[MAX_AMOUNT_BUGS];
-        // массив инфо по дням на исправление
+        String[] severityArrayInfo = new String[MAX_AMOUNT_BUGS];
         int[] daysToFixArrayInfo = new int[MAX_AMOUNT_BUGS];
 
         Scanner in = new Scanner(System.in);
 
         do {
-
             System.out.println("Выберите действие: \n1. Добавить новый дефект \n2. Вывести список дефектов \n3. Выйти из программы");
 
             //как добавить игнорирование эксепшена при вводе в консоли строки??
@@ -37,51 +25,40 @@ public class Main {
             action = in.nextInt();
             in.nextLine(); // считываем конец строки, чтобы можно было следующим вводить в консоли String
 
-            if (action == 1 && bug < MAX_AMOUNT_BUGS){
-                System.out.println("Введите резюме дефекта:");
-                resumeArrayInfo[bug] = in.nextLine();
-                System.out.println("Выберите критичность дефекта:");
-                for (int i = 0; i < CRITICALITY_ARRAY.length; i++) {
-                    System.out.println((i+1) + ". " + CRITICALITY_ARRAY[i]);
-                }
-                //ввод критичности из консоли
-                int choice = in.nextInt();
-                //переменная для критичности
-                //отображать сообщение только если введено некорректное значение критичности
-                if (choice > CRITICALITY_ARRAY.length || choice <= 0){
-                    do {
-                        System.out.println("Необходимо выбрать порядковый номер критичности от 1 до " + CRITICALITY_ARRAY.length);
+            if (action == 1) {
+                if (bugIndex < MAX_AMOUNT_BUGS) {
+                    System.out.println("Введите резюме дефекта:");
+                    resumeArrayInfo[bugIndex] = in.nextLine();
+                    System.out.println("Выберите критичность дефекта:");
+                    for (int i = 0; i < SEVERITY_ARRAY.length; i++) {
+                        System.out.println((i + 1) + ". " + SEVERITY_ARRAY[i]);
+                    }
+                    int choice = in.nextInt();
+                    while (choice > SEVERITY_ARRAY.length || choice <= 0) {
+                        System.out.println("Необходимо выбрать порядковый номер критичности от 1 до " + SEVERITY_ARRAY.length);
                         choice = in.nextInt();
-                    } while (choice > CRITICALITY_ARRAY.length || choice <= 0);
-                    criticalityArrayInfo[bug] = CRITICALITY_ARRAY[choice - 1];
-                } else {
-                    criticalityArrayInfo[bug] = CRITICALITY_ARRAY[choice - 1];
-                }
+                    }
+                    severityArrayInfo[bugIndex] = SEVERITY_ARRAY[choice - 1];
 
-                System.out.println("Введите ожидаемое количество дней на исправление дефекта:");
-                //переменная для срока исправления
-                daysToFixArrayInfo[bug] = in.nextInt();
-                String info = "[" + (bug) + "] " + "Резюме: " + resumeArrayInfo[bug] +
-                        " | Критичность: " + criticalityArrayInfo[bug] +
-                        " | Дней на исправление: " + daysToFixArrayInfo[bug] +
-                        " | Исправление займёт больше рабочей недели: " + (daysToFixArrayInfo[bug] > WORK_WEEK);
-                arrayOfBugs[bug] = info;
-                bug++;
+                    System.out.println("Введите ожидаемое количество дней на исправление дефекта:");
+                    daysToFixArrayInfo[bugIndex] = in.nextInt();
+                    bugIndex++;
+                } else {
+                    System.out.println("Невозможно добавить новый дефект. Количество дефектов максимальное.\n");
+                }
             } else if (action == 2) {
-                if (bug == 0){
+                if (bugIndex == 0) {
                     System.out.println("Дефекты отсутствуют.\n");
                 } else {
-                    for (int i = 0; i < bug; i++) {
-                        System.out.println(arrayOfBugs[i]);
+                    for (int i = 0; i < bugIndex; i++) {
+                        System.out.println("[" + (i) + "] " + "Резюме: " + resumeArrayInfo[i] +
+                                " | Критичность: " + severityArrayInfo[i] +
+                                " | Дней на исправление: " + daysToFixArrayInfo[i] +
+                                " | Исправление займёт больше рабочей недели: " + (daysToFixArrayInfo[i] > WORK_WEEK));
                     }
                     System.out.println("\n");
                 }
-
-            } else if (action == 1 && bug >= MAX_AMOUNT_BUGS){
-                System.out.println("Невозможно добавить новый дефект. Количество дефектов максимальное.\n");
             }
-
         } while (action != 3);
-
     }
 }
