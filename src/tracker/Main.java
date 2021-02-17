@@ -5,13 +5,13 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        final int week = 5;
-        int bugs = 10;
+//        final int week = 5;
+        final int bugs = 2;
         int count = 0;
         Scanner sc = new Scanner(System.in);
         String[] summary = new String[bugs];
         String[] criticality = new String[bugs];
-        int days[] = new int[bugs];
+        int[] days = new int[bugs];
 
         do {
             System.out.println("Для добавления нового дефекта ввведите \"add\" \nДля просмотра списка дефектов введите \"list\" \nДля выхода из программы введите \"quit\" ");
@@ -28,16 +28,17 @@ public class Main {
                     days[count] = sc.nextInt();
                     sc.nextLine();
                     count++;
-                } else System.out.println("Нет возможности ввода более 10 дефектов");
+                } else System.out.println("Нет возможности ввода более " +bugs+ " дефектов");
            }
             else if (menu.equals("list")) {
                     for (int i = 0; i < count; i++) {
-                        System.out.println("номер дефекта:  " + (i+1) + " | резюме: " + summary[0] + " | серьезность: " + criticality[0] + " | количество дней на исправление " + days[0]);
+                        System.out.println("номер дефекта:  " + (i+1) + " | резюме: " + summary[i] + " | серьезность: "
+                                + criticality[i] + " | количество дней на исправление " + days[i]);
                     }
-                } else if (menu.equals("quit")) {
-                    break;
-                }
             }
-            while (count != bugs) ;
-              }
+            else if (menu.equals("quit")) {
+                    break;
+            }
+        } while (true) ;
+    }
 }
