@@ -31,16 +31,15 @@ public class Main {
                   System.out.println("\nУкажите ожидаемое количество дней на исправление дефекта");
                     int dueDates = sc.nextInt();
                     sc.nextLine();
-                    bugs [countBugs] = new Defect(resume, severity, dueDates);
+                    bugs [countBugs] = new Defect(countBugs +1, resume, severity, dueDates);
                     countBugs++;
-
                 } else {
                     System.out.println("\nНевозможно создать более 10 дефектов\n");
                 }
             } else if (userChoice == 2) {
                 if (countBugs > 0) {
-                    //System.out.println(countBugs);
                     for (int i = 0; i < countBugs; i++) {
+                        System.out.println(bugs[i].getId());
                         bugs[i].getInfo();
                     }
                 } else {
