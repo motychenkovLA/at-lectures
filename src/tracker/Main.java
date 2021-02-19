@@ -27,15 +27,15 @@ public class Main {
                     System.out.println("Просьба ввести ожидаемое количество дней на исправление дефекта");
                     int days = in.nextInt();
                     in.nextLine();
-                    bugs[totalBugs] = new Defect((id+1), summary, priority, days);
-                    id++;
+                    bugs[totalBugs] = new Defect((totalBugs+1), summary, priority, days);
+                    totalBugs++;
 
                 } else System.out.println("Программа максимально может хранить до 10 дефектов");
 
             } else if (act == 2) {
-                if (id > 0) { ;
-                    for (int i = 0; i < totalBugs; i++) ;
-                    bugs[totalBugs].listOfDefects();
+                if (totalBugs > 0) { ;
+                    for (int i = 0; i < totalBugs; i++)
+                    bugs[i].listOfDefects();
 
                 }else System.out.println("Список дефектов пуст");
 
