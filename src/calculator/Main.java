@@ -17,8 +17,12 @@ public class Main {
             int leftOperand = scanner.nextInt();
             scanner.nextLine();
 
-            System.out.println("Введите операцию: ");
-            String operator = scanner.nextLine();
+            String symbol = "";
+            while (!Operator.isLegalSymbol(symbol)) {
+                System.out.println("Введите операцию (+ - * / %): ");
+                symbol = scanner.nextLine();
+            }
+            Operator operator = new Operator(symbol);
 
             System.out.println("Введите число: ");
             int rightOperand = scanner.nextInt();

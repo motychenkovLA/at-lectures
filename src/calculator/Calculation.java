@@ -1,34 +1,24 @@
 package calculator;
 
 public class Calculation {
-    private int leftOperand;
-    private String operation;
-    private int rightOperands;
-    private int result;
+    private final int leftOperand;
+    private final Operator operator;
+    private final int rightOperands;
+    private final int result;
 
-    public Calculation(int leftOperand, String operation, int rightOperands) {
+    public Calculation(int leftOperand, Operator operator, int rightOperands) {
         this.leftOperand = leftOperand;
-        this.operation = operation;
+        this.operator = operator;
         this.rightOperands = rightOperands;
-        this.result = 0;
-
-        switch (operation) {
-            case "+": result = leftOperand + rightOperands; break;
-            case "-": result = leftOperand - rightOperands; break;
-            case "/": result = leftOperand / rightOperands; break;
-            case "*": result = leftOperand * rightOperands; break;
-            case "%": result = leftOperand % rightOperands; break;
-            default:
-                System.out.println("Неверная операция");
-        }
+        this.result = operator.apply(leftOperand, rightOperands);
     }
 
     public int getLeftOperand() {
         return leftOperand;
     }
 
-    public String getOperation() {
-        return operation;
+    public Operator getOperator() {
+        return operator;
     }
 
     public int getRightOperands() {
@@ -40,6 +30,6 @@ public class Calculation {
     }
 
     public String display() {
-        return leftOperand + " " + operation + " " + rightOperands + " = " + result;
+        return leftOperand + " " + operator.getSymbol() + " " + rightOperands + " = " + result;
     }
 }
