@@ -4,14 +4,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
         final int MAX_AMOUNT_BUGS = 10;
         final String[] SEVERITY_ARRAY = {"Блокирующий", "Высокий", "Средний", "Низкий"};
 
         int action;
-        int bugIndex = 0;
-
-        Defect[] defect = new Defect[MAX_AMOUNT_BUGS];
+        Repository defectList = new Repository(MAX_AMOUNT_BUGS);
 
         Scanner in = new Scanner(System.in);
 
@@ -24,7 +21,7 @@ public class Main {
             in.nextLine(); // считываем конец строки, чтобы можно было следующим вводить в консоли String
 
             if (action == 1) {
-                if (bugIndex < MAX_AMOUNT_BUGS) {
+                if (Repository.getBugsCount() < MAX_AMOUNT_BUGS) {
                     System.out.println("Введите резюме дефекта:");
                     String resume = in.nextLine();
                     System.out.println("Выберите критичность дефекта:");
@@ -39,20 +36,13 @@ public class Main {
                     String severity = SEVERITY_ARRAY[choice - 1];
                     System.out.println("Введите ожидаемое количество дней на исправление дефекта:");
                     int daysToFix = in.nextInt();
-                    defect[bugIndex] = new Defect(bugIndex, resume, severity, daysToFix);
-                    bugIndex++;
+                    defectList.add(new Defect(resume, severity, daysToFix));
                 } else {
-                    System.out.println("Невозможно добавить новый дефект. Количество дефектов максимальное.\n");
+                    System.out.println("Невозможно добавить новый дефект. Максимальное количество дефектов - " + MAX_AMOUNT_BUGS + "\n");
                 }
             } else if (action == 2) {
-                if (bugIndex == 0) {
-                    System.out.println("Дефекты отсутствуют.\n");
-                } else {
-                    for (int i = 0; i < bugIndex; i++) {
-                        defect[i].getDefectInfo();
-                    }
-                    System.out.println("\n");
-                }
+                defectList.getAll();
+                System.out.println("\n");
             }
         } while (action != 3);
     }
