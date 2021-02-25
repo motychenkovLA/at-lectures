@@ -7,13 +7,14 @@ public class Defect {
      при выводе списка дефекты отображаются в виде "id | резюме | серьезность | количество дней на исправление"
      */
     public final static int WORK_WEEK = 5;
-    private long id;
+    private final long id;
     private String resume;
     private String severity;
     private long dueDates;
+    private static int defectId = 0;
 
-    public Defect(long id, String resume, String severity, long dueDates) {
-        this.id = id;
+    public Defect(String resume, String severity, long dueDates) {
+        this.id = defectId++;
         this.resume = resume;
         this.severity = severity;
         this.dueDates = dueDates;
@@ -41,14 +42,14 @@ public class Defect {
 
     public int  getCorrectionDate(){
         return correctionDate;
-    }*/
+    }
 
     public long getId() {
         return id;
-    }
+    }*/
 
     public void getInfo() {
-        System.out.println(id + " | Резюме: " + resume + " | Критичность дефекта: "
+        System.out.println((id +1) + " | Резюме: " + resume + " | Критичность дефекта: "
                 + severity + " | Количество дней на исправление: " + dueDates);
                 //+ " | Исправление дефекта займет больше рабочей недели: " + (dueDates > WORK_WEEK));
     }
