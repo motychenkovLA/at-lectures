@@ -3,12 +3,12 @@ package tracker;
 import java.sql.SQLOutput;
 
 public class Defect {
-    protected long id;
-    protected String summary;
-    protected String priority;
-    protected int days;
+    private long id;
+    private  String summary;
+    private  String priority;
+    private  int days;
 
-    public Defect(long id, String summary, String priority, int days) {
+    public Defect(String summary, String priority, int days) {
         this.summary = summary;
         this.priority = priority;
         this.days = days;
@@ -21,17 +21,6 @@ public class Defect {
              }
 
 
-//        public String getSummary() {
-//            return summary;
-//        }
-//
-//        public String getPriority() {
-//            return priority;
-//        }
-//
-//        public int getDays() {
-//            return days;
-//        }
 
     }
 

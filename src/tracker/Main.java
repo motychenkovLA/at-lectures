@@ -6,39 +6,31 @@ public class Main {
 
     public static void main(String[] args) {
         int act;
-        int CONST = 5;
-        int totalBugs = 0;
-        int MAX_COUNT_BUGS = 10;
+        int maxCountDefects = 10;
+        Repository defects = new Repository(maxCountDefects);
 
-        Defect[] bugs = new Defect[MAX_COUNT_BUGS];
-        long id = 0;
         do {
             Scanner in = new Scanner(System.in);
             System.out.println("Меню багтрекера:\n1.Создать новый дефект\n2.Список дефектов\n3.Выход из программы");
             act = in.nextInt();
             in.nextLine();
             if (act == 1) {
-                if (totalBugs < MAX_COUNT_BUGS) {
+                if (defects.getCountDefects() < maxCountDefects) {
                     System.out.println("Просьба заполнить резюме дефекта");
-                    String summary= in.nextLine();
+                    String summary = in.nextLine();
                     System.out.println("Просьба выбрать критичность дефекта\n- Блокирующий\n- Критический\n- Средний\n" +
                             "-" + " Низкий");
-                    String priority  = in.nextLine();
+                    String priority = in.nextLine();
                     System.out.println("Просьба ввести ожидаемое количество дней на исправление дефекта");
                     int days = in.nextInt();
                     in.nextLine();
-                    bugs[totalBugs] = new Defect((totalBugs+1), summary, priority, days);
-                    totalBugs++;
+                    defects.add(new Defect(summary, priority, days));
 
-                } else System.out.println("Программа максимально может хранить до 10 дефектов");
-
+                } else{
+                    System.out.println("Программа максимально может хранить до " + maxCountDefects + " дефектов");
+                     }
             } else if (act == 2) {
-                if (totalBugs > 0) { ;
-                    for (int i = 0; i < totalBugs; i++)
-                    bugs[i].listOfDefects();
-
-                }else System.out.println("Список дефектов пуст");
-
+                defects.getAll();
             }
         }
         while (act != 3);
