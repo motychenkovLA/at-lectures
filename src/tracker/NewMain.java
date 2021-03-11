@@ -6,8 +6,10 @@ import java.util.Scanner;
 public class NewMain {
 
     public static void main(String[] args) {
+        final int SIZE_BUG_LIST = 10;
         Scanner in = new Scanner(System.in);
-        final String[] BUG_LIST = new String[10];
+        String[] BUG_LIST = new String[SIZE_BUG_LIST];
+        int index = 0;
         boolean continueProgram = true;
         final String MAIN_INFO = "\nВведите необходимую цифру для действия\n1. Добавить новый дефект\n2. Вывести список дефектов\n3. Выход из программы";
 
@@ -37,11 +39,12 @@ public class NewMain {
                     String bugInfo = "Описание дефекта - " + summaryOfDefect + "\nКритичность дефекта - " + priorityDefect + "\nДней на исправление - " + daysToFix + "\nИсправление займет больше рабочей недели - " + result;
                     System.out.println(bugInfo);
                     BUG_LIST[i] = bugInfo;
+                    index++;
                     System.out.println();
                     break;
                 }
 
-            } else if (BUG_LIST[9] != null) {
+            } else if (index == SIZE_BUG_LIST) {
 
                 System.out.println("Достигнут лимит по количеству дефектом. Максимально в системе может быть 10 дефектов");
                 break;
