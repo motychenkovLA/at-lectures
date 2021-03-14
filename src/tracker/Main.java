@@ -1,5 +1,6 @@
 package tracker;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -8,7 +9,7 @@ public class Main {
         final String[] SEVERITY_ARRAY = {"Блокирующий", "Высокий", "Средний", "Низкий"};
 
         int action;
-        Repository defectList = new Repository(MAX_AMOUNT_BUGS);
+        Repository repository = new Repository(MAX_AMOUNT_BUGS);
 
         Scanner in = new Scanner(System.in);
 
@@ -16,12 +17,11 @@ public class Main {
             System.out.println("Выберите действие: \n1. Добавить новый дефект \n2. Вывести список дефектов \n3. Выйти из программы");
 
             //как добавить игнорирование эксепшена при вводе в консоли строки??
-
             action = in.nextInt();
             in.nextLine(); // считываем конец строки, чтобы можно было следующим вводить в консоли String
 
             if (action == 1) {
-                if (Repository.getBugsCount() < MAX_AMOUNT_BUGS) {
+                if (repository.getBugsCount() < repository.getMaxBugsCount()) {
                     System.out.println("Введите резюме дефекта:");
                     String resume = in.nextLine();
                     System.out.println("Выберите критичность дефекта:");
@@ -36,14 +36,50 @@ public class Main {
                     String severity = SEVERITY_ARRAY[choice - 1];
                     System.out.println("Введите ожидаемое количество дней на исправление дефекта:");
                     int daysToFix = in.nextInt();
-                    defectList.add(new Defect(resume, severity, daysToFix));
+
+                    System.out.println("Добавить вложение?\n1. Да\n2. Нет");
+                    int needAttachment = in.nextInt();
+                    in.nextLine();
+                    while (needAttachment != 1 & needAttachment != 2) {
+                        System.out.println("Необходимо выбрать вариант 1 или 2");
+                        needAttachment = in.nextInt();
+                        in.nextLine();
+                    }
+                    if (needAttachment == 1) {
+                        System.out.println("Выберите тип вложения:\n1. Комментарий\n2. Ссылка на дефект");
+                        int choiceAttachment = in.nextInt();
+                        in.nextLine();
+                        while (choiceAttachment != 1 & choiceAttachment != 2) {
+                            System.out.println("Необходимо выбрать вариант 1 или 2");
+                            choiceAttachment = in.nextInt();
+                            in.nextLine();
+                        }
+                        Attachment attachment;
+                        if (choiceAttachment == 1) {
+                            System.out.println("Введите комментарий");
+                            String comment = in.nextLine();
+                            attachment = new CommentAttachment(comment);
+                        } else {
+                            System.out.println("Введите ссылку на дефект (номер дефекта)");
+                            long reference = in.nextLong();
+                            in.nextLine();
+                            attachment = new DefectAttachment(reference);
+                        }
+                        repository.add(new Defect(resume, severity, daysToFix, attachment));
+                    } else {
+                        repository.add(new Defect(resume, severity, daysToFix));
+                    }
                 } else {
-                    System.out.println("Невозможно добавить новый дефект. Максимальное количество дефектов - " + MAX_AMOUNT_BUGS + "\n");
+                    System.out.println("Невозможно добавить новый дефект. Максимальное количество дефектов - " + repository.getMaxBugsCount() + "\n");
                 }
             } else if (action == 2) {
-                defectList.getAll();
-                System.out.println("\n");
+                if (repository.getBugsCount() == 0) {
+                    System.out.println("Дефекты отсутствуют.\n");
+                } else {
+                    System.out.println(Arrays.toString(repository.getAll()) + "\n");
+                }
             }
-        } while (action != 3);
+        }
+        while (action != 3);
     }
 }

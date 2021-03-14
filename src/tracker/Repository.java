@@ -1,8 +1,10 @@
 package tracker;
 
+import java.util.Arrays;
+
 public class Repository {
-    private int maxBugsCount;
-    private static int bugId = 0;
+    private final int maxBugsCount;
+    private int bugId = 0;
     private final Defect[] defect;
 
     public Repository(int maxBugsCount) {
@@ -15,17 +17,15 @@ public class Repository {
         bugId++;
     }
 
-    public void getAll() {
-        if (Repository.getBugsCount() == 0) {
-            System.out.println("Дефекты отсутствуют.");
-        } else {
-            for (int i = 0; i < Repository.getBugsCount(); i++) {
-                defect[i].getDefectInfo();
-            }
-        }
+    public int getBugsCount() {
+        return bugId;
     }
 
-    public static int getBugsCount() {
-        return bugId;
+    public int getMaxBugsCount() {
+        return maxBugsCount;
+    }
+
+    public Defect[] getAll() {
+        return Arrays.copyOf(defect, getBugsCount());
     }
 }
