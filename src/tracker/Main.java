@@ -6,6 +6,8 @@ public class Main {
     public static void main(String[] args) {
 
         int userChoice;
+        int addAttachment;
+        int attachmentType;
         //счетчик кол-ва дефектов
 //        int countBugs = 0;
   //      final int MAX_COUNT_BUGS = 10;
@@ -35,7 +37,30 @@ public class Main {
                   System.out.println("\nУкажите ожидаемое количество дней на исправление дефекта");
                     int dueDates = sc.nextInt();
                     sc.nextLine();
-                    defectList.add(new Defect(resume,severity,dueDates));
+
+                    System.out.println("Добавить вложение в дефект?\n1. Да\n2. Нет");
+                    addAttachment = sc.nextInt();
+                    sc.nextLine();
+                    if (addAttachment == 1){
+                        Attachment attachment;
+                        System.out.println("Выберите тип вложения\n1. Комментарий\n2. Ссылка на дефект\n");
+                        attachmentType = sc.nextInt();
+                        sc.nextLine();
+                        if (attachmentType == 1){
+                            System.out.println("Введите комментарий");
+                            String commentary = sc.nextLine();
+                            attachment = new CommentAttachment(commentary);
+                            defectList.add(new Defect(resume, severity, dueDates, attachment));
+                        }
+                         else {
+                            System.out.println("Укажите ID дефект, на который ссылаетесь");
+                            long defectId = sc.nextLong();
+                            attachment = new DefectAttachment(defectId);
+                            defectList.add(new Defect(resume, severity, dueDates, attachment));
+                         }
+                    } else {
+                        defectList.add(new Defect(resume, severity, dueDates));
+                    }
                 }
                 else {
                     System.out.println("\nНевозможно создать более " + maxCountDefects + " дефектов\n");
@@ -44,5 +69,6 @@ public class Main {
                 defectList.getAll();
             }
         } while (userChoice != 3);
+        sc.close();
     }
 }

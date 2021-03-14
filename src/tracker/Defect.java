@@ -8,16 +8,25 @@ public class Defect {
      */
     public final static int WORK_WEEK = 5;
     private final long id;
-    private String resume;
-    private String severity;
-    private long dueDates;
+    private final String resume;
+    private final String severity;
+    private final long dueDates;
     private static int defectId = 0;
+    private Attachment attachment;
 
     public Defect(String resume, String severity, long dueDates) {
         this.id = defectId++;
         this.resume = resume;
         this.severity = severity;
         this.dueDates = dueDates;
+     }
+
+    public Defect(String resume, String severity, long dueDates, Attachment attachment) {
+        this.id = defectId++;
+        this.resume = resume;
+        this.severity = severity;
+        this.dueDates = dueDates;
+        this.attachment = attachment;
     }
 
    /* public String setResume (String resume){
@@ -49,8 +58,14 @@ public class Defect {
     }*/
 
     public void getInfo() {
+        if(attachment == null){
+            System.out.println((id +1) + " | Резюме: " + resume + " | Критичность дефекта: "
+                    + severity + " | Количество дней на исправление: " + dueDates);
+        }
+        else{
         System.out.println((id +1) + " | Резюме: " + resume + " | Критичность дефекта: "
-                + severity + " | Количество дней на исправление: " + dueDates);
+                + severity + " | Количество дней на исправление: " + dueDates + " " + attachment.asString());
+        }
                 //+ " | Исправление дефекта займет больше рабочей недели: " + (dueDates > WORK_WEEK));
     }
 
