@@ -1,19 +1,19 @@
 package calculator;
 
-public class Calculation {
-    private final int leftOperand;
+public class Calculation implements Value {
+    private final Value leftOperand;
     private final Operator operator;
-    private final int rightOperands;
+    private final Value rightOperands;
     private final int result;
 
-    public Calculation(int leftOperand, Operator operator, int rightOperands) {
+    public Calculation(Value leftOperand, Operator operator, Value rightOperands) {
         this.leftOperand = leftOperand;
         this.operator = operator;
         this.rightOperands = rightOperands;
-        this.result = operator.apply(leftOperand, rightOperands);
+        this.result = operator.apply(leftOperand.get(), rightOperands.get());
     }
 
-    public int getLeftOperand() {
+    public Value getLeftOperand() {
         return leftOperand;
     }
 
@@ -21,7 +21,7 @@ public class Calculation {
         return operator;
     }
 
-    public int getRightOperands() {
+    public Value getRightOperands() {
         return rightOperands;
     }
 
@@ -30,6 +30,11 @@ public class Calculation {
     }
 
     public String display() {
-        return leftOperand + " " + operator.getSymbol() + " " + rightOperands + " = " + result;
+        return leftOperand.get() + " " + operator.getSymbol() + " " + rightOperands.get() + " = " + result;
+    }
+
+    @Override
+    public int get() {
+        return result;
     }
 }
