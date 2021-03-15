@@ -1,34 +1,38 @@
 package tracker;
 
 public class Defect {
-    private long id;
-    private String resume;
+    private long id = 0;
+    private String description;
     private String severity;
     private int daysToFix;
-    public Defect[] BUG_LIST = new Defect[10];
-
-//    public Defect(Defect[] BUG_LIST) {
-//        this.BUG_LIST = BUG_LIST;
-//    }
 
 
-
-//    public Defect(long id, String resume, String severity, int daysToFix) {
-//        this.id = id;
-//        this.resume = resume;
-//        this.severity = severity;
-//        this.daysToFix = daysToFix;
-//    }
-
-    public Defect setBug(long id, String resume, String severity, int daysToFix){
-        this.id = id;
-        this.resume = resume;
-        this.severity = severity;
-        this.daysToFix = daysToFix;
-        return null;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Defect[] getBUG_LIST() {
-        return BUG_LIST;
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public void setDaysToFix(int daysToFix) {
+        this.daysToFix = daysToFix;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public int getDaysToFix() {
+        return daysToFix;
+    }
+
+    public Defect() {
+        this.id = id++;
+
     }
 }
